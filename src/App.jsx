@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Shop from "./components/Shop";
-import { DUMMY_PRODUCTS } from "./dummy-products";
 import Product from "./components/Product";
+import { DUMMY_PRODUCTS } from "./dummy-products";
+import { CartContext } from "./store/shopping-cart-context";
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState({ items: [] });
@@ -63,20 +64,25 @@ function App() {
     });
   };
 
+  const ctxValue = {
+    items: shoppingCart.items,
+    addItemToCart: handleAddItemToCart,
+    updateItemQuantity: handleUpdateCartItemQuantity,
+  };
+
+  // Context API ka Provider ek React component hai jo ek context ko provide karta hai. Context ek tarah ka global state hota hai jo aap apne React tree ke bade hisse mein share kar sakte hain. Jab aap kisi component mein ek Context ka Provider define karte hain, toh us component aur uske sab children (descendant) components us context ke values ko access kar sakte hain.
   return (
-    <>
-      <Header
-        cart={shoppingCart}
-        onUpdateCartItemQuantity={handleUpdateCartItemQuantity}
-      />
+    <CartContext.Provider value={ctxValue}>
+      <Header />
+
       <Shop>
         {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
-            <Product {...product} onAddToCart={handleAddItemToCart} />
+            <Product {...product} />
           </li>
         ))}
       </Shop>
-    </>
+    </CartContext.Provider>
   );
 }
 

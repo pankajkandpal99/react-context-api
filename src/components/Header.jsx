@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import CartModal from "./CartModal";
+import { CartContext } from "../store/shopping-cart-context";
 
-const Header = ({ cart, onUpdateCartItemQuantity }) => {
+const Header = () => {
+  const { items } = useContext(CartContext);
+  console.log(items);
+
   const modal = useRef();
-  // console.log(cart);
-  const cartQuantity = cart?.items.length;
+  const cartQuantity = items.length;
 
   const handleOpenCartClick = () => {
     modal.current.open();
@@ -23,13 +26,7 @@ const Header = ({ cart, onUpdateCartItemQuantity }) => {
 
   return (
     <>
-      <CartModal
-        ref={modal}
-        cartItems={cart?.items}
-        onUpdateCartItemQuantity={onUpdateCartItemQuantity}
-        title="Your Cart"
-        actions={modalActions}
-      />
+      <CartModal ref={modal} title="Your Cart" actions={modalActions} />
 
       <header id="main-header">
         <div id="main-title">

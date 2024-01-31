@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
 // CartContext provide a object which will need later...
-const CartContext = createContext({
+export const CartContext = createContext({
   items: [],
+  addItemToCart: () => {},
+  updateItemQuantity: () => {},
 });
-
-
