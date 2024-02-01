@@ -5,7 +5,7 @@ import { CartContext } from "../store/shopping-cart-context";
 
 const Header = () => {
   const { items } = useContext(CartContext);
-  console.log(items);
+  // console.log(items);
 
   const modal = useRef();
   const cartQuantity = items.length;

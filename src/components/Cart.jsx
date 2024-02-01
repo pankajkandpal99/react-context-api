@@ -5,6 +5,7 @@ import { CartContext } from "../store/shopping-cart-context";
 const Cart = () => {
   const { items, updateItemQuantity } = useContext(CartContext);
 
+  // reducer function is one or more complex values to a simpler one.
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
